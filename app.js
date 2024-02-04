@@ -28,11 +28,12 @@ class TaskWordFinder {
     constructor(dictionaryFileName) {
         const dictionaryList = this.loadDictionaryFromFile(dictionaryFileName);
         this.dictionarySet = new Set(dictionaryList);
+        this.longestWord = undefined;
     }
     loadDictionaryFromFile(fileName) {
         try {
             const data = fs.readFileSync(fileName, 'utf8');
-            return data.split('\n').map((word) => word.trim());
+            return data.split('\n').map(word => word.trim());
         }
         catch (error) {
             console.error(`Error reading dictionary file: ${fileName}`);
@@ -46,13 +47,19 @@ class TaskWordFinder {
     longestWordFinder(s) {
         // Sort the dictionary words by length in descending order
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length);
-        // Iterate through sorted words and return the first valid word
+        // Iterate through sorted words and set the longestWord property with the first valid word
         for (const word of sortedWords) {
             if (word.length <= s.length && this.isValidWord(word, s)) {
+                this.longestWord = word;
                 return word;
             }
         }
+        // If no valid word is found, set longestWord to undefined
+        this.longestWord = undefined;
         return undefined;
+    }
+    getLongestWord() {
+        return this.longestWord;
     }
 }
 // Example usage:
@@ -61,3 +68,4 @@ const taskWordFinder = new TaskWordFinder(dictionaryFileName);
 const inputWord = 'acrdts';
 const result = taskWordFinder.longestWordFinder(inputWord);
 console.log(`The longest word that can be built from '${inputWord}' is: ${result}`);
+console.log(`Longest word found using the letters of '${inputWord}': ${taskWordFinder.getLongestWord()}`);
