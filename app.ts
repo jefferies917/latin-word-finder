@@ -1,8 +1,21 @@
-class WordFinder {
+import * as fs from 'fs';
+
+class TaskWordFinder {
     private dictionarySet: Set<string>;
 
-    constructor(dictionaryList: string[]) {
+    constructor(dictionaryFileName: string) {
+        const dictionaryList = this.loadDictionaryFromFile(dictionaryFileName);
         this.dictionarySet = new Set(dictionaryList);
+    }
+
+    private loadDictionaryFromFile(fileName: string): string[] {
+        try {
+            const data = fs.readFileSync(fileName, 'utf8');
+            return data.split('\n').map((word: string) => word.trim());
+        } catch (error) {
+            console.error(`Error reading dictionary file: ${fileName}`);
+            throw error;
+        }
     }
 
     private isValidWord(word: string, availableLetters: string): boolean {
@@ -10,7 +23,7 @@ class WordFinder {
         return [...word].every(letter => availableLetters.includes(letter));
     }
 
-    longestWord(s: string): string | undefined {
+    longestWordFinder(s: string): string | undefined {
         // Sort the dictionary words by length in descending order
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length);
 
@@ -26,12 +39,10 @@ class WordFinder {
 }
 
 // Example usage:
-// Create a WordFinder instance with a list of words
-const dictionaryList: string[] = ["cat", "dog", "rat", "art", "car", "cards"];
-const wordFinder = new WordFinder(dictionaryList);
+const dictionaryFileName: string = 'dictionary.txt';
+const taskWordFinder = new TaskWordFinder(dictionaryFileName);
 
-// Find the longest word that can be formed from the given letters
-const inputWord: string = "acrdts";
-const result: string | undefined = wordFinder.longestWord(inputWord);
+const inputWord: string = 'acrdts';
+const result: string | undefined = taskWordFinder.longestWordFinder(inputWord);
 
 console.log(`The longest word that can be built from '${inputWord}' is: ${result}`);
