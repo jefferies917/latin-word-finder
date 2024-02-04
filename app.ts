@@ -21,15 +21,12 @@ class TaskWordFinder {
     }
 
     private isValidWord(word: string, availableLetters: string): boolean {
-        // Check if the word can be formed using available letters
         return [...word].every(letter => availableLetters.includes(letter));
     }
 
     longestWordFinder(s: string): string | undefined {
-        // Sort the dictionary words by length in descending order
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length);
 
-        // Iterate through sorted words and set the longestWord property with the first valid word
         for (const word of sortedWords) {
             if (word.length <= s.length && this.isValidWord(word, s)) {
                 this.longestWord = word;
@@ -37,7 +34,6 @@ class TaskWordFinder {
             }
         }
 
-        // If no valid word is found, set longestWord to undefined
         this.longestWord = undefined;
         return undefined;
     }
@@ -47,11 +43,10 @@ class TaskWordFinder {
     }
 }
 
-// Example usage:
 const dictionaryFileName: string = 'dictionary.txt';
 const taskWordFinder = new TaskWordFinder(dictionaryFileName);
 
-const inputWord: string = 'acrdts';
+const inputWord: string = 'acrdtsgr';
 const result: string | undefined = taskWordFinder.longestWordFinder(inputWord);
 
 console.log(`The longest word that can be built from '${inputWord}' is: ${result}`);
