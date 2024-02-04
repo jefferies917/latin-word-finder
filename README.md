@@ -53,7 +53,8 @@ JOIN GOALS G ON P.ID = G.striker_id
 WHERE P.team = 'PSG';
 ```
 
-B. Why? The WHERE query is selecting A.player_id = B.player.id. This is probably a typo
+B. Why? The WHERE query is selecting A.player_id = B.player.id, using a dot instead of an underscore. This is probably a typo
+
 How would I rewrite it? The where query should be: WHERE A.player_id = B.player_id. Id probably consider changing the name of the column to striker_id to avoid confusion
 
 C. How would i rewrite the query to remove a subquery? By using JOIN
