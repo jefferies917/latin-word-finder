@@ -62,5 +62,5 @@ const dictionaryFileName = 'dictionary.txt';
 const taskWordFinder = new TaskWordFinder(dictionaryFileName);
 const inputWord = 'acrdtsgr';
 const result = taskWordFinder.longestWordFinder(inputWord);
-console.log(`The longest word that can be built from '${inputWord}' is: ${result}`);
-console.log(`Longest word found using the letters of '${inputWord}': ${taskWordFinder.getLongestWord()}`);
+console.log(`The longest word that can be made from '${inputWord}' is: ${result}`);
+console.log(`The longest word found in the dictionary from '${inputWord}': ${taskWordFinder.getLongestWord()}`);
