@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaskWordFinder = void 0;
 const fs = __importStar(require("fs")); // Import the Node.js file system module for file operations
 class TaskWordFinder {
     constructor(dictionaryFileName) {
@@ -44,14 +45,27 @@ class TaskWordFinder {
     }
     // Method to check if a word can be formed using available letters
     isValidWord(word, availableLetters) {
-        return [...word].every(letter => availableLetters.includes(letter)); // Check if every letter of word is in availableLetters
+        const availableLetterSet = new Set(availableLetters);
+        const wordLetterSet = new Set(word);
+        // Check if every letter in the word is present in the available letters
+        return [...wordLetterSet].every(letter => availableLetterSet.has(letter));
     }
-    // Method to find the longest word that can be formed using given letters
     longestWordFinder(s) {
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length); // Sort words by length in descending order
+        console.log("Available Letters:", s);
         for (const word of sortedWords) {
-            if (word.length <= s.length && this.isValidWord(word, s)) {
-                // If word length is less than or equal to available letters and word is valid
+            const wordLetters = word.split('');
+            const availableLetters = s.split('');
+            let isValid = true;
+            for (const letter of wordLetters) {
+                const letterIndex = availableLetters.indexOf(letter);
+                if (letterIndex === -1) {
+                    isValid = false;
+                    break;
+                }
+                availableLetters.splice(letterIndex, 1);
+            }
+            if (isValid) {
                 this.longestWord = word; // Update longestWord
                 return word; // Return the longest word found
             }
@@ -64,13 +78,16 @@ class TaskWordFinder {
         return this.longestWord; // Return the longest word found
     }
 }
-const dictionaryFileName = 'dictionary.txt'; // Name of the dictionary file
-const taskWordFinder = new TaskWordFinder(dictionaryFileName); // Create a new TaskWordFinder object
-// Extract input letters from command line arguments
-const inputWord = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Input letters to find the longest word
-if (!inputWord) {
-    console.error('Please provide letters as command line argument.');
-    process.exit(1); // Exit with error status
+exports.TaskWordFinder = TaskWordFinder;
+// Only run this part if the script is executed directly
+if (require.main === module) {
+    const dictionaryFileName = 'dictionary.txt'; // Name of the dictionary file
+    const taskWordFinder = new TaskWordFinder(dictionaryFileName); // Create a new TaskWordFinder object
+    // Extract input letters from command line arguments
+    const inputWord = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Input letters to find the longest word
+    if (!inputWord) {
+        throw new Error('Please provide letters as command line argument.');
+    }
+    const result = taskWordFinder.longestWordFinder(inputWord); // Find the longest word
+    console.log(`The longest word that can be made from '${inputWord}' is: ${result}`); // Log the result
 }
-const result = taskWordFinder.longestWordFinder(inputWord); // Find the longest word
-console.log(`The longest word that can be made from '${inputWord}' is: ${result}`); // Log the result
