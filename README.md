@@ -28,6 +28,10 @@ By following these steps, the reader will understand how to run the script with 
 1. cd into `homa-task/`
 2. Run `npm test`
 
+### TODO
+
+Create test script for app.ts
+
 ## SQL queries requested
 This was a technical test for a company that also wanted me to demonstrate some knowledge of SQL, hence the SQL queries at the bottom of the file.
 

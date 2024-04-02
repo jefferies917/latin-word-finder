@@ -23,6 +23,7 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.TaskWordFinder = void 0;
 const fs = __importStar(require("fs")); // Import the Node.js file system module for file operations
 class TaskWordFinder {
     constructor(dictionaryFileName) {
@@ -77,13 +78,16 @@ class TaskWordFinder {
         return this.longestWord; // Return the longest word found
     }
 }
-const dictionaryFileName = 'dictionary.txt'; // Name of the dictionary file
-const taskWordFinder = new TaskWordFinder(dictionaryFileName); // Create a new TaskWordFinder object
-// Extract input letters from command line arguments
-const inputWord = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Input letters to find the longest word
-if (!inputWord) {
-    console.error('Please provide letters as command line argument.');
-    process.exit(1); // Exit with error status
+exports.TaskWordFinder = TaskWordFinder;
+// Only run this part if the script is executed directly
+if (require.main === module) {
+    const dictionaryFileName = 'dictionary.txt'; // Name of the dictionary file
+    const taskWordFinder = new TaskWordFinder(dictionaryFileName); // Create a new TaskWordFinder object
+    // Extract input letters from command line arguments
+    const inputWord = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Input letters to find the longest word
+    if (!inputWord) {
+        throw new Error('Please provide letters as command line argument.');
+    }
+    const result = taskWordFinder.longestWordFinder(inputWord); // Find the longest word
+    console.log(`The longest word that can be made from '${inputWord}' is: ${result}`); // Log the result
 }
-const result = taskWordFinder.longestWordFinder(inputWord); // Find the longest word
-console.log(`The longest word that can be made from '${inputWord}' is: ${result}`); // Log the result
