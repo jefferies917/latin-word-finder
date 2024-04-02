@@ -2,8 +2,6 @@
 
 This repository contains a simple TypeScript program that finds the longest word that can be formed using a given set of letters, utilizing a dictionary of Latin words. The program efficiently loads the dictionary from a file and employs a set for quick word lookup. It provides a command-line interface for users to input letters and receive the longest valid Latin word as output. This tool can be helpful for language enthusiasts, Latin learners, or anyone interested in word games.
 
-This was a technical test for a company that also wanted me to demonstrate some knowledge of SQL, hence the SQL queries at the bottom of the file.
-
 Features:
 
 - Efficient dictionary loading and word lookup
@@ -26,6 +24,7 @@ node app.js acrdtsgr
 By following these steps, the reader will understand how to run the script with the new feature of providing input letters via command line arguments.
 
 ## SQL queries requested
+This was a technical test for a company that also wanted me to demonstrate some knowledge of SQL, hence the SQL queries at the bottom of the file.
 
 A. 
 1. Goals with beauty above 0.9 or below 0.1
