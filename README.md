@@ -1,10 +1,17 @@
 # How to Run
 
 1. cd into `homa-task/`
-2. `npx tsc`
-3. `node app.js`
+2. Run `npx tsc` to compile the TypeScript code into JavaScript.
+3. Run `node app.js <letters>` where `<letters>` should be replaced with the letters you want to find the longest word for.
 
 May require `npm install` for @types/node
+
+Example:
+```sh
+node app.js acrdtsgr
+```
+
+By following these steps, the reader will understand how to run the script with the new feature of providing input letters via command line arguments.
 
 ## SQL queries requested
 

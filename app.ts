@@ -52,7 +52,13 @@ class TaskWordFinder {
 const dictionaryFileName: string = 'dictionary.txt'; // Name of the dictionary file
 const taskWordFinder = new TaskWordFinder(dictionaryFileName); // Create a new TaskWordFinder object
 
-const inputWord: string = 'acrdtsgr'; // Input letters to find the longest word
+// Extract input letters from command line arguments
+const inputWord: string = process.argv[2] ? process.argv[2].toLowerCase() : ''; // Input letters to find the longest word
+if (!inputWord) {
+    console.error('Please provide letters as command line argument.');
+    process.exit(1); // Exit with error status
+}
+
 const result: string | undefined = taskWordFinder.longestWordFinder(inputWord); // Find the longest word
 
 console.log(`The longest word that can be made from '${inputWord}' is: ${result}`); // Log the result
