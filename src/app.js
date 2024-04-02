@@ -52,7 +52,6 @@ class TaskWordFinder {
     }
     longestWordFinder(s) {
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length); // Sort words by length in descending order
-        console.log("Available Letters:", s);
         for (const word of sortedWords) {
             const wordLetters = word.split('');
             const availableLetters = s.split('');
