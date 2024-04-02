@@ -10,7 +10,7 @@ Features:
 
 ## How to Run
 
-1. cd into `homa-task/`
+1. cd into `homa-task/src/`
 2. Run `npx tsc` to compile the TypeScript code into JavaScript.
 3. Run `node app.js <letters>` where `<letters>` should be replaced with the letters you want to find the longest word for.
 
