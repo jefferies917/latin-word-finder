@@ -24,16 +24,35 @@ class TaskWordFinder {
 
     // Method to check if a word can be formed using available letters
     private isValidWord(word: string, availableLetters: string): boolean {
-        return [...word].every(letter => availableLetters.includes(letter)); // Check if every letter of word is in availableLetters
+        const availableLetterSet = new Set(availableLetters);
+        const wordLetterSet = new Set(word);
+
+        // Check if every letter in the word is present in the available letters
+        return [...wordLetterSet].every(letter => availableLetterSet.has(letter));
     }
 
-    // Method to find the longest word that can be formed using given letters
+
+
     longestWordFinder(s: string): string | undefined {
         const sortedWords = Array.from(this.dictionarySet).sort((a, b) => b.length - a.length); // Sort words by length in descending order
 
+        console.log("Available Letters:", s);
+
         for (const word of sortedWords) {
-            if (word.length <= s.length && this.isValidWord(word, s)) {
-                // If word length is less than or equal to available letters and word is valid
+            const wordLetters = word.split('');
+            const availableLetters = s.split('');
+
+            let isValid = true;
+            for (const letter of wordLetters) {
+                const letterIndex = availableLetters.indexOf(letter);
+                if (letterIndex === -1) {
+                    isValid = false;
+                    break;
+                }
+                availableLetters.splice(letterIndex, 1);
+            }
+
+            if (isValid) {
                 this.longestWord = word; // Update longestWord
                 return word; // Return the longest word found
             }
@@ -42,6 +61,7 @@ class TaskWordFinder {
         this.longestWord = undefined; // If no valid word found, set longestWord as undefined
         return undefined; // Return undefined
     }
+
 
     // Method to get the longest word found
     getLongestWord(): string | undefined {
